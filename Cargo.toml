@@ -1,0 +1,19 @@
+[package]
+name = "gh-github-status"
+description = "Github CLI extension for fetching github status"
+authors = ["Alexander Ryabets <naeptunao@gmail.com>"]
+version = "0.1.0"
+edition = "2021"
+categories = ["command-line-utilities"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/neptunao/gh-github-status"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1"
+crossterm = {version = "0.23.2", features = [] }
+reqwest = { version = "0.11.*", features = ["json"] }
+serde = { version = "1.*", features = ["derive"] }
+tokio = { version = "1.*", features = ["macros"] }
