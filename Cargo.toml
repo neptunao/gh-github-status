@@ -13,7 +13,7 @@ repository = "https://github.com/neptunao/gh-github-status"
 
 [dependencies]
 anyhow = "1"
-crossterm = {version = "0.23.2", features = [] }
 reqwest = { version = "0.11.*", features = ["json"] }
 serde = { version = "1.*", features = ["derive"] }
+termcolor = "1.1"
 tokio = { version = "1.*", features = ["macros"] }
