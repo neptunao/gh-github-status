@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+  pull_request:
+    branches: ["main"]
+
+name: Build and publish
+jobs:
+  build:
+    name: Install rust
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - run: cargo install cross --git https://github.com/cross-rs/cross
+        name: Install cross
+      - run: chmod +x ./script/build.sh && ./script/build.sh
