@@ -2,6 +2,10 @@
 
 gh extension for displaying [github status](https://www.githubstatus.com/) in CLI
 
+[![GitHub Go
+Workflow](https://github.com/neptunao/gh-github-status/actions/workflows/main.yml/badge.svg)](https://github.com/neptunao/gh-github-status/actions/workflows/main.yml)
+[![License](https://img.shields.io/badge/License-MIT-default.svg)](./LICENSE.md)
+
 ![demo](https://github.com/neptunao/gh-github-status/raw/assets/demo.gif)
 
 ## Installation
