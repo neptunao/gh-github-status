@@ -17,11 +17,11 @@ jobs:
         with:
           toolchain: stable
       - run: cargo build --release
-      - run: mv ./target/release/gh-github-status ./target/release/gh-github-status_darwin_amd64
+      - run: mv ./target/release/gh-github-status ./target/release/gh-github-status-darwin-amd64
       - uses: actions/upload-artifact@v3
         with:
           name: dist-macos
-          path: ./target/release/gh-github-status_darwin_amd64
+          path: ./target/release/gh-github-status-darwin-amd64
 
   build:
     name: Build Linux and Windows
@@ -39,5 +39,8 @@ jobs:
           toolchain: stable
       - run: cargo install cross --git https://github.com/cross-rs/cross
         name: Install cross
-      - run: chmod +x ./script/build.sh && ./script/build.sh
-      - run: ls -l dist
+      - run: chmod +x ./script/build.sh
+      - uses: cli/gh-extension-precompile@v1
+        if: github.ref_type == 'tag'
+        with:
+          build_script_override: "script/build.sh"
