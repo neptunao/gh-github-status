@@ -8,14 +8,36 @@ on:
 
 name: Build and publish
 jobs:
-  build:
-    name: Install rust
-    runs-on: ubuntu-latest
+  build-macos:
+    name: Build MacOS
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - run: cargo build --release
+      - run: mv ./target/release/gh-github-status ./target/release/gh-github-status_darwin_amd64
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist-macos
+          path: ./target/release/gh-github-status_darwin_amd64
+
+  build:
+    name: Build Linux and Windows
+    runs-on: ubuntu-latest
+    needs: ["build-macos"]
+    steps:
+      - uses: actions/checkout@v3
+      - run: mkdir dist
+      - uses: actions/download-artifact@v3
+        with:
+          name: dist-macos
+          path: ./dist/
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
       - run: cargo install cross --git https://github.com/cross-rs/cross
         name: Install cross
       - run: chmod +x ./script/build.sh && ./script/build.sh
+      - run: ls -l dist
